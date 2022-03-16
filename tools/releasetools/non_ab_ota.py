@@ -214,6 +214,26 @@ else if get_stage("%(bcb_dev)s") == "3/3" then
   # Dump fingerprints
   script.Print("Target: {}".format(target_info.fingerprint))
 
+  date = target_info.GetBuildProp("ro.infinity.build.date")
+  version = target_info.GetBuildProp("ro.infinity.version")
+
+  if target_info.GetBuildProp("ro.product.model") is not None:
+    model = target_info.GetBuildProp("ro.product.model")
+    script.Print("***********************************************");
+    script.Print("           Project Infinity X for %s"%(model));
+    script.Print("               BY: RDx55                ");
+    script.Print("   VERSION: %s"%(version));
+    script.Print("   COMPILED ON: %s"%(date));
+    script.Print("***********************************************");
+  else:
+    name = target_info.GetBuildProp("ro.product.name")
+    script.Print("***********************************************");
+    script.Print("           Project Infinity X for %s"%(name));
+    script.Print("               BY: RDx55                ");
+    script.Print("   VERSION: %s"%(version));
+    script.Print("   COMPILED ON: %s"%(date));
+    script.Print("***********************************************");
+
   device_specific.FullOTA_InstallBegin()
 
   CopyInstallTools(output_zip)
