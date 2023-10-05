@@ -1138,6 +1138,21 @@ set_global_paths
 source_vendorsetup
 addcompletions
 
+function remove_broken_build_tools() {
+    # Check for files matching each pattern and delete if they exist
+    if ls prebuilts/build-tools/path/*/date >/dev/null 2>&1; then
+        for file in prebuilts/build-tools/path/*/date; do
+            rm -f "$file"  # Remove each date file if it exists
+        done
+    fi
+
+    if ls prebuilts/build-tools/path/*/tar >/dev/null 2>&1; then
+        for file in prebuilts/build-tools/path/*/tar; do
+            rm -f "$file"  # Remove each tar file if it exists
+        done
+    fi
+}
+
 # check and set ccache path on envsetup
 if [ -z "${CCACHE_EXEC}" ]; then
     if command -v ccache &>/dev/null; then
@@ -1154,6 +1169,8 @@ if [ -z "${CCACHE_EXEC}" ]; then
         echo "Error: ccache not found. Please install ccache." >&2
     fi
 fi
+
+remove_broken_build_tools
 
 export ANDROID_BUILD_TOP=$(gettop)
 
