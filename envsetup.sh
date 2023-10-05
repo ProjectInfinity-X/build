@@ -1153,7 +1153,23 @@ if [ -z "${CCACHE_EXEC}" ]; then
     else
         echo "Error: ccache not found. Please install ccache." >&2
     fi
-fi
+}
+
+function remove_broken_build_tools() {
+    for file in prebuilts/build-tools/path/*/date; do
+        if [ -e "$file" ]; then
+            rm -rf "$file"
+        fi
+    done
+    for file in prebuilts/build-tools/path/*/tar; do
+        if [ -e "$file" ]; then
+            rm -rf "$file"
+        fi
+    done
+}
+
+remove_broken_build_tools
+setup_ccache
 
 export ANDROID_BUILD_TOP=$(gettop)
 
