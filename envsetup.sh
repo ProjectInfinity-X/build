@@ -558,15 +558,15 @@ function lunch()
         return 1
     fi
 
-    local product release variant
+    local product variant
 
     # Handle the legacy format
     local legacy=$(echo $1 | grep "-")
     if [[ $# -eq 1 && -n $legacy ]]; then
-        IFS="-" read -r product release variant <<< "$1"
-        if [[ -z "$product" ]] || [[ -z "$release" ]] || [[ -z "$variant" ]]; then
+        IFS="-" read -r product variant <<< "$1"
+        if [[ -z "$product" ]] || [[ -z "$variant" ]]; then
             echo "Invalid lunch combo: $1" 1>&2
-            echo "Valid combos must be of the form <product>-<release>-<variant> when using" 1>&2
+            echo "Valid combos must be of the form <product>-<variant> when using" 1>&2
             echo "the legacy format.  Run 'lunch --help' for usage." 1>&2
             return 1
         fi
@@ -584,6 +584,19 @@ function lunch()
             variant=eng
         fi
     fi
+
+    # always pick the latest release
+    release=$(grep "BUILD_ID" build/make/core/build_id.mk | tail -1 | cut -d '=' -f 2 | cut -d '.' -f 1 | tr '[:upper:]' '[:lower:]')
+    export TARGET_RELEASE=$release
+
+    if (echo -n $1 | grep -q -e "^infinity_") ; then
+      INFINITY_BUILD=$(echo -n $product | sed -e 's/^infinity_//g')
+    else
+      INFINITY_BUILD=
+    fi
+    export INFINITY_BUILD
+    INFINITY_DEVICE=$INFINITY_BUILD
+    export INFINITY_DEVICE
 
     # Validate the selection and set all the environment stuff
     _lunch_meat $product $release $variant
