@@ -216,3 +216,12 @@ ifdef BOARD_LIBACRYL_G2D_HDR_PLUGIN
   #BOARD_LIBACRYL_G2D_HDR_PLUGIN is set in each board config
   $(call soong_config_set_bool,acryl,libacryl_use_g2d_hdr_plugin,true)
 endif
+
+# Add sim_count, disable_rild_oem_hook, and use_aosp_rild flag for ril related modules
+$(call soong_config_set,ril,sim_count,$(SIM_COUNT))
+ifneq ($(DISABLE_RILD_OEM_HOOK), false)
+  $(call soong_config_set_bool,ril,disable_rild_oem_hook,true)
+endif
+ifneq ($(ENABLE_VENDOR_RIL_SERVICE), true)
+  $(call soong_config_set_bool,ril,use_aosp_rild,true)
+endif
