@@ -201,3 +201,18 @@ $(call soong_config_set_bool,gralloc,target_use_pan_display,$(if $(filter true,$
 
 # Add use_camera_v4l2_hal flag for hardware/libhardware/modules/camera/3_4:camera.v4l2
 $(call soong_config_set_bool,camera,use_camera_v4l2_hal,$(if $(filter true,$(USE_CAMERA_V4L2_HAL)),true,false))
+
+# Export related variables to soong for hardware/google/graphics/common/libacryl:libacryl
+ifdef BOARD_LIBACRYL_DEFAULT_COMPOSITOR
+  $(call soong_config_set,acryl,libacryl_default_compositor,$(BOARD_LIBACRYL_DEFAULT_COMPOSITOR))
+endif
+ifdef BOARD_LIBACRYL_DEFAULT_SCALER
+  $(call soong_config_set,acryl,libacryl_default_scaler,$(BOARD_LIBACRYL_DEFAULT_SCALER))
+endif
+ifdef BOARD_LIBACRYL_DEFAULT_BLTER
+  $(call soong_config_set,acryl,libacryl_default_blter,$(BOARD_LIBACRYL_DEFAULT_BLTER))
+endif
+ifdef BOARD_LIBACRYL_G2D_HDR_PLUGIN
+  #BOARD_LIBACRYL_G2D_HDR_PLUGIN is set in each board config
+  $(call soong_config_set_bool,acryl,libacryl_use_g2d_hdr_plugin,true)
+endif
