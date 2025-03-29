@@ -1153,7 +1153,7 @@ if [ -z "${CCACHE_EXEC}" ]; then
     else
         echo "Error: ccache not found. Please install ccache." >&2
     fi
-}
+fi
 
 function remove_broken_build_tools() {
     # Check for files matching each pattern and delete if they exist
@@ -1171,7 +1171,6 @@ function remove_broken_build_tools() {
 }
 
 remove_broken_build_tools
-setup_ccache
 
 export ANDROID_BUILD_TOP=$(gettop)
 
