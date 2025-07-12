@@ -214,6 +214,31 @@ else if get_stage("%(bcb_dev)s") == "3/3" then
   # Dump fingerprints
   script.Print("Target: {}".format(target_info.fingerprint))
 
+  script.Print("                                                ");
+  script.Print("         _____           _           _          ");
+  script.Print("        |  __ \         (_)         | |         ");
+  script.Print("        | |__) | __ ___  _  ___  ___| |_        ");
+  script.Print("        |  ___/ '__/ _ \| |/ _ \/ __| __|       ");
+  script.Print("        | |   | | | (_) | |  __/ (__| |_        ");
+  script.Print("        |_|   |_|  \___// |\___|\___|\__|       ");
+  script.Print("                     _/  /                      ");
+  script.Print("                    |__/                        ");
+  script.Print("                                                ");
+  script.Print("       |_  _|     | __          | |             ");
+  script.Print("        | |  _ __ | |_ _ _ __  _| |_ _   _      ");
+  script.Print("        | | | '_ \|  _| | '_ \| | __| | | |     ");
+  script.Print("       _| |_| | | | | | | | | | | |_| |_| |     ");
+  script.Print("       |____|_| |_|_| |_|_| |_|_|\__|\__, |     ");
+  script.Print("                                      __/ |     ");
+  script.Print("                                     |___/      ");
+  script.Print("                                                ");
+  script.Print("                     \ \ / /                    ");
+  script.Print("                      \ V /                     ");
+  script.Print("                       > <                      ");
+  script.Print("                      / . \                     ");
+  script.Print("                     /_/ \_\                    ");
+  script.Print("                                                ");
+
   device_specific.FullOTA_InstallBegin()
 
   CopyInstallTools(output_zip)
